@@ -57,13 +57,14 @@ async def send_photos_with_descriptions(chat_id, file_path, message, key, app):
             else: 
                 binary_photos.append(InputMediaPhoto(binary))
     
-    it = True
-    while it:
+    it = 0
+    while it < 5:
         try:   
             await app.send_media_group(chat_id, binary_photos)
-            it = False
+            break
         except Exception as e:
-            time.sleep(5)
+            time.sleep(60)
+            it += 1
             continue
     
     with open('database/messages.json', 'r') as f:
