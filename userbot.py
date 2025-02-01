@@ -1,5 +1,5 @@
-from pyrogramv2 import client
-from pyrogramv2.types import InputMediaPhoto
+from pyrogram import client
+from pyrogram.types import InputMediaPhoto
 from io import BytesIO
 
 import json
@@ -10,7 +10,7 @@ import logging
 from cfg import *
 
 logging.basicConfig(
-    level=logging.INFO,  # Уровень логирования: DEBUG, INFO, WARNING, ERROR, CRITICAL
+    level=logging.DEBUG,  # Уровень логирования: DEBUG, INFO, WARNING, ERROR, CRITICAL
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",  # Формат сообщения
     datefmt="%Y-%m-%d %H:%M:%S",  # Формат даты
     handlers=[
@@ -22,7 +22,6 @@ logging.basicConfig(
 logger = logging.getLogger("MyApp")
 
 app = client.Client('session_name', 26851519, "abe97f63a8836d5c9b69df440b8fd1d2")
-app.start()
 
 
 async def load_json():
@@ -63,9 +62,8 @@ async def send_photos_with_descriptions(chat_id, file_path, message, key, app):
             await app.send_media_group(chat_id, binary_photos)
             break
         except Exception as e:
-            time.sleep(60)
+            await asyncio.sleep(60)
             it += 1
-            continue
     
     with open('database/messages.json', 'r') as f:
         d = json.load(f)
@@ -75,6 +73,7 @@ async def send_photos_with_descriptions(chat_id, file_path, message, key, app):
         json.dump(d, file, indent=4)
         
 async def main():
+    await app.start()
     while True:
         try:
             t = await check_time()

@@ -19,6 +19,17 @@ dp = Dispatcher()
 dp.message.middleware.register(isAdmin())
 
 process = None
+import logging
+
+
+logging.basicConfig(
+    level=logging.DEBUG,  # Уровень логирования: DEBUG, INFO, WARNING, ERROR, CRITICAL
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",  # Формат сообщения
+    datefmt="%Y-%m-%d %H:%M:%S",  # Формат даты
+    handlers=[
+        logging.FileHandler("bot.log", encoding="utf-8")  # Логирование в файл
+    ]
+)
 
 async def load_json():
     with open('database/messages.json', 'r', encoding='utf-8') as f:
