@@ -11,7 +11,7 @@ from cfg import *
 
 # Настройка логирования
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
     handlers=[logging.FileHandler("app.log", encoding="utf-8"), logging.StreamHandler()]
@@ -99,23 +99,11 @@ async def main():
             t = await check_time()
             
             if t:
-<<<<<<< HEAD
                 for idx, i in enumerate(t):
                     logger.info(f"Отправка сообщения в {i['chat_id']}")
                     await send_photos_with_descriptions(i['chat_id'], i['file_path'], i['message'], idx)
                     await asyncio.sleep(5)
             
-=======
-                it = 0
-                for i in t:
-                    try:
-                        await send_photos_with_descriptions(i['chat_id'], i['file_path'], i['message'], it, app)
-                        it += 1
-                        await asyncio.sleep(60)
-                    except:
-                        pass
-
->>>>>>> caec873378f67bab465aa059bc7aaf455eccf5f4
             await asyncio.sleep(5)
         except Exception as err:
             logger.error(f"Ошибка в основном цикле: {err}", exc_info=True)
