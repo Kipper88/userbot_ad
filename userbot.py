@@ -81,9 +81,12 @@ async def main():
             if t:
                 it = 0
                 for i in t:
-                    await send_photos_with_descriptions(i['chat_id'], i['file_path'], i['message'], it, app)
-                    it += 1
-                    await asyncio.sleep(60)
+                    try:
+                        await send_photos_with_descriptions(i['chat_id'], i['file_path'], i['message'], it, app)
+                        it += 1
+                        await asyncio.sleep(60)
+                    except:
+                        pass
 
             await asyncio.sleep(5)
         except Exception as err:
