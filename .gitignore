@@ -2,10 +2,9 @@
 __pycache__
 venv
 app.log
-session_name.session
-.gitignore
+session.session
+session.session-journal
 tesdtststtss
 txt.txt
 test.txt
 database/messages.json
-database
